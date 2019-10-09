@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
         BaseObject.OnTriggered += BaseObject_OnActivated;
 #if UNITY_EDITOR || UNITY_STANDALONE
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
 #endif
     }
     private void OnDestroy()

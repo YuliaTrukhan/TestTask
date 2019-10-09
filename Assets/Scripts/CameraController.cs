@@ -7,11 +7,12 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Vector3 positionOffset;
 
+
     private void Start()
     {
         cameraPosPivot.localPosition = positionOffset;
     }
-    void LateUpdate()
+    private void LateUpdate()
     {
         transform.position = playerTransform.position;
         cameraRotatePivot.rotation = playerTransform.rotation;

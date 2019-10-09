@@ -21,4 +21,14 @@ public static class InputManager
 #if UNITY_EDITOR || UNITY_STANDALONE
         Input.GetButtonDown("Fire2");
 #endif
+
+    public static float MouseX =>
+#if UNITY_EDITOR || UNITY_STANDALONE
+        Input.GetAxis("Mouse X");
+#endif
+
+    public static float MouseY =>
+#if UNITY_EDITOR || UNITY_STANDALONE
+        Input.GetAxis("Mouse Y");
+#endif
 }

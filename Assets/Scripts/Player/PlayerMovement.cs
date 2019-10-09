@@ -28,27 +28,9 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            animator.SetBool("PlayerAttack", false);
-            var vertical = InputManager.VerticalAxis ;
-            var horizontal = InputManager.HorizontalAxos;
-
-            animator.SetFloat("Forward", vertical, moveDampTime, Time.deltaTime * animationMoveTime);
-            animator.SetFloat("Right", horizontal, moveDampTime, Time.deltaTime * animationMoveTime);
-
-            float movementY = rotationSpeed * Input.GetAxis("Mouse X") * Time.deltaTime;
-            transform.Rotate(0f, movementY, 0f);
-            IsMoving = vertical > 0f || vertical < 0f || horizontal > 0f || horizontal < 0f;
-        }
-        if (IsMoving)
-        {
-            SetPlayerBlendTreeSpeed(1f);
-        }
-        else
-        {
-            StopPlayer();
+            Movement();
         }
 
-        SetPlayerBlendTreeSpeed(IsMoving ? 1f : 0f);
 
         if (InputManager.StrongAttack)
         {
@@ -56,13 +38,43 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void SetPlayerBlendTreeSpeed(float value)
+    private void StartPlayer()
     {
-        animator.SetFloat("Speed", value, accelerationDampTime, Time.deltaTime * accelerationTime) ;
+        animator.SetFloat("Speed", 1f, accelerationDampTime, Time.deltaTime * accelerationTime) ;
     }
     
     private void StopPlayer()
     {
         animator.SetFloat("Speed", 0f, stopDampTime, Time.deltaTime * stopTime);
+    }
+
+    private void Movement()
+    {
+        animator.SetBool("PlayerAttack", false);
+        var vertical = InputManager.VerticalAxis;
+        var horizontal = InputManager.HorizontalAxos;
+
+        animator.SetFloat("Forward", vertical, moveDampTime, Time.deltaTime * animationMoveTime);
+        animator.SetFloat("Right", horizontal, moveDampTime, Time.deltaTime * animationMoveTime);
+        Rotate();
+        float movementY = rotationSpeed * Input.GetAxis("Mouse X") * Time.deltaTime;
+        transform.Rotate(0f, movementY, 0f);
+
+        IsMoving = vertical > 0f || vertical < 0f || horizontal > 0f || horizontal < 0f;
+
+        if (IsMoving)
+        {
+            StartPlayer();
+        }
+        else
+        {
+            StopPlayer();
+        }
+    }
+
+    private void Rotate()
+    {
+        float movementY = rotationSpeed * Input.GetAxis("Mouse X") * Time.deltaTime;
+        transform.Rotate(0f, movementY, 0f);
     }
 }
